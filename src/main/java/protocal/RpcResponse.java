@@ -2,6 +2,9 @@ package protocal;
 
 import java.io.Serializable;
 
+/**
+ * 响应
+ */
 public class RpcResponse implements Serializable {
 
 

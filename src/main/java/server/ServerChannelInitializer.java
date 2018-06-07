@@ -12,8 +12,8 @@ public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> 
 
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
-        ch.pipeline().addLast(new ObjectEncoder());
         ch.pipeline().addLast(new ObjectDecoder(65536 * 1024, ClassResolvers.cacheDisabled(null)));
+        ch.pipeline().addLast(new ObjectEncoder());
         ch.pipeline().addLast(new ServerHandler());
     }
 }
