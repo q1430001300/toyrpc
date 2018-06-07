@@ -21,6 +21,7 @@ public class RpcClient {
                     .handler(new ClientChannelInitializer());
             //异步连接操作
             ChannelFuture future = b.connect(new InetSocketAddress(host, port)).sync();
+            System.out.println(future == null);
             ChannelFutureManager.addChannelFuture(future);
         } finally {
             //所有资源释放完成之后,清空资源,在此发起重连操作

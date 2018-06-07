@@ -1,6 +1,7 @@
 package protocal;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.UUID;
 
 public class RpcRequest<T> implements Serializable {
@@ -41,5 +42,15 @@ public class RpcRequest<T> implements Serializable {
 
     public void setObjects(Object[] objects) {
         this.objects = objects;
+    }
+
+    @Override
+    public String toString() {
+        return "RpcRequest{" +
+                "requestId='" + requestId + '\'' +
+                ", invokeClass=" + invokeClass +
+                ", methodName='" + methodName + '\'' +
+                ", objects=" + Arrays.toString(objects) +
+                '}';
     }
 }
