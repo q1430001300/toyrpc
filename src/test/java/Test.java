@@ -14,7 +14,7 @@ public class Test {
     @org.junit.Test
     public void test1() throws Exception {
         RpcClient rpcClient = new RpcClient();
-        rpcClient.connect(8083, "127.0.0.1");
+        rpcClient.connect(8086, "127.0.0.1");
         ChannelFuture channelFuture = ChannelFutureManager.getChannelFuture();
         RpcRequest rpcRequest = new RpcRequest();
 //        ObjectEncode objectEncoder = new ObjectEncode();
@@ -23,10 +23,12 @@ public class Test {
 //        System.out.println(channel);
 //        DefaultChannelProgressivePromise promise = new DefaultChannelProgressivePromise(channel);
 //        objectEncoder.write(encode, rpcRequest, promise);
-        Thread.sleep(1000);
         System.out.println(rpcRequest);
         System.out.println(channelFuture.channel().pipeline().lastContext() == null);
-        channelFuture.channel().pipeline().lastContext().writeAndFlush(rpcRequest);
+        byte[] bytes = "ssss".getBytes();
+        ByteBuf buffer = Unpooled.buffer();
+        buffer.writeBytes(bytes);
+        channelFuture.channel().writeAndFlush(buffer).;
 
     }
 }
