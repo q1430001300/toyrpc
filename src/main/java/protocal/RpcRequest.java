@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.UUID;
 
+/**
+ * 请求
+ * @param <T>
+ */
 public class RpcRequest<T> implements Serializable {
 
 

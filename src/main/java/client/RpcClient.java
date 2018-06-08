@@ -6,6 +6,7 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import protocal.RpcRequest;
 
 import java.net.InetSocketAddress;
 
@@ -21,11 +22,13 @@ public class RpcClient {
                     .handler(new ClientChannelInitializer());
             //异步连接操作
             ChannelFuture future = b.connect(new InetSocketAddress(host, port)).sync();
-            System.out.println(future == null);
-            ChannelFutureManager.addChannelFuture(future);
+//            RpcRequest rpcRequest = new RpcRequest();
+//            System.out.println(rpcRequest);
+//            future.channel().writeAndFlush(rpcRequest);
+//            ChannelManager.addChannelFuture(future.channel());
         } finally {
             //所有资源释放完成之后,清空资源,在此发起重连操作
-            bossGroup.shutdownGracefully();
+//            bossGroup.shutdownGracefully();
         }
     }
 }
