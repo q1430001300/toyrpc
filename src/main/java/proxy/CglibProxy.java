@@ -6,6 +6,8 @@ import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 import protocal.RpcRequest;
+import result.RpcResultContext;
+import result.RpcResultHandler;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -27,25 +29,34 @@ public class CglibProxy implements MethodInterceptor, IProxy {
 
 
     public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
-        Map<String, Object> map = new HashMap();
-        String name = o.getClass().getName();
-        String methodName = method.getName();
-        map.put("className", name);
-        map.put("methodName", methodName);
-        map.put("arguments", objects);
-        RpcRequest requestMessage = buildRequest(map);
-        Channel channel = ChannelManager.getChannel();
-        channel.writeAndFlush(requestMessage);
-        //getResult
-        return null;
+        Class<?> declaringClass = method.getDeclaringClass();
+        if (!declaringClass.isAssignableFrom(Object.class)) {
+            RpcRequest request = buildRequest(method, declaringClass, objects);
+            Channel channel = ChannelManager.getChannel();
+            channel.writeAndFlush(request);
+            //getResult
+            return RpcResultContext.getResponse(request.getRequestId(), new RpcResultHandler()).getResult();
+        }
+        return method.invoke(o, objects);
+
     }
 
-
-    private RpcRequest buildRequest(Object object) {
-        RpcRequest rpcRequest = new RpcRequest();
-        //todo
-        return rpcRequest;
+    /**
+     * 构造请求
+     *
+     * @param method
+     * @param declaringClass
+     * @param objects
+     * @return
+     */
+    private RpcRequest buildRequest(Method method, Class<?> declaringClass, Object[] objects) {
+        return new RpcRequest()
+                .setMethodName(method.getName())
+                .setDeclaringClass(declaringClass)
+                .setObjects(objects)
+                .setParameterTypes(method.getParameterTypes());
     }
+
 
     @Override
     public <T> T getClass(Class<T> tClass) {
