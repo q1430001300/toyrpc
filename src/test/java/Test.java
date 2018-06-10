@@ -1,11 +1,11 @@
-import client.ChannelManager;
-import client.RpcClient;
+import client.channel.ChannelManager;
+import client.init.RpcClient;
+import client.proxy.CglibProxy;
+import client.proxy.IProxy;
 import io.netty.channel.Channel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import protocal.RpcRequest;
-import proxy.CglibProxy;
-import proxy.IProxy;
 import base.IStudent;
 
 import java.util.concurrent.CountDownLatch;

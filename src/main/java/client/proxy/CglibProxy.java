@@ -1,6 +1,6 @@
-package proxy;
+package client.proxy;
 
-import client.ChannelManager;
+import client.channel.ChannelManager;
 import io.netty.channel.Channel;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
@@ -8,12 +8,10 @@ import net.sf.cglib.proxy.MethodProxy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import protocal.RpcRequest;
-import result.RpcResultContext;
-import result.RpcResultHandler;
+import client.result.RpcResultContext;
+import client.result.RpcResultHandler;
 
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * cglib动态代理

@@ -1,4 +1,4 @@
-package balanceStragy;
+package client.balance;
 
 import io.netty.channel.Channel;
 

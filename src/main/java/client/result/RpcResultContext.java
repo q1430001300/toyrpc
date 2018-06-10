@@ -1,4 +1,4 @@
-package result;
+package client.result;
 
 import protocal.RpcResponse;
 

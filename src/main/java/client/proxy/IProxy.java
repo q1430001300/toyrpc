@@ -1,4 +1,4 @@
-package proxy;
+package client.proxy;
 
 /**
  * 代理接口
