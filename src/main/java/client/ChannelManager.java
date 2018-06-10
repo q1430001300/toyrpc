@@ -4,6 +4,7 @@ import io.netty.channel.Channel;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
+
 public class ChannelManager {
 
     private static final CopyOnWriteArrayList<Channel> channels = new CopyOnWriteArrayList();

@@ -12,23 +12,20 @@ import java.net.InetSocketAddress;
 
 public class RpcClient {
 
+    EventLoopGroup group = null;
 
     public void connect(int port, String host) throws InterruptedException {
         Bootstrap b = new Bootstrap();
-        EventLoopGroup bossGroup = new NioEventLoopGroup();
-        try {
-            b.group(bossGroup).channel(NioSocketChannel.class)
-                    .option(ChannelOption.TCP_NODELAY, true)
-                    .handler(new ClientChannelInitializer());
-            //异步连接操作
-            ChannelFuture future = b.connect(new InetSocketAddress(host, port)).sync();
-//            RpcRequest rpcRequest = new RpcRequest();
-//            System.out.println(rpcRequest);
-//            future.channel().writeAndFlush(rpcRequest);
-//            ChannelManager.addChannelFuture(future.channel());
-        } finally {
-            //所有资源释放完成之后,清空资源,在此发起重连操作
-//            bossGroup.shutdownGracefully();
+        group = new NioEventLoopGroup();
+        b.group(group).channel(NioSocketChannel.class)
+                .option(ChannelOption.TCP_NODELAY, true)
+                .handler(new ClientChannelInitializer());
+        b.connect(new InetSocketAddress(host, port)).sync();
+    }
+
+    public void shutDown() {
+        if (group != null) {
+            group.shutdownGracefully();
         }
     }
 }

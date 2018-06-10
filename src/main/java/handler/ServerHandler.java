@@ -16,7 +16,7 @@ public class ServerHandler extends ChannelHandlerAdapter {
             RpcResponse response = new RpcResponse();
             response.setRequestId(rpcRequest.getRequestId());
             response.setRessultCode(RessultCode.SUCCESS);
-            response.setResult("hahaah" + rpcRequest.getRequestId());
+            response.setResult(rpcRequest.getObjects().toString());
             ctx.writeAndFlush(response);
         }
 

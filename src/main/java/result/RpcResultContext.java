@@ -20,7 +20,9 @@ public class RpcResultContext {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return resultHandlerMap.get(requestId).getResponse();
+        RpcResponse response = resultHandlerMap.get(requestId).getResponse();
+        resultHandlerMap.remove(requestId);
+        return response;
     }
 
 
