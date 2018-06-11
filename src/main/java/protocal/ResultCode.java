@@ -3,7 +3,7 @@ package protocal;
 /**
  * 状态码
  */
-public enum RessultCode {
+public enum ResultCode {
 
     SUCCESS,FAIL
 }

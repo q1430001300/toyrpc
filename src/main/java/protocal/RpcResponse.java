@@ -10,7 +10,7 @@ public class RpcResponse implements Serializable {
 
     private String requestId;
 
-    private RessultCode ressultCode;
+    private ResultCode ressultCode;
 
     private String msg;
 
@@ -21,31 +21,35 @@ public class RpcResponse implements Serializable {
         return requestId;
     }
 
-    public void setRequestId(String requestId) {
+    public RpcResponse setRequestId(String requestId) {
         this.requestId = requestId;
+        return this;
     }
 
-    public RessultCode getRessultCode() {
+    public ResultCode getRessultCode() {
         return ressultCode;
     }
 
-    public void setRessultCode(RessultCode ressultCode) {
+    public RpcResponse setRessultCode(ResultCode ressultCode) {
         this.ressultCode = ressultCode;
+        return this;
     }
 
     public Object getResult() {
         return result;
     }
 
-    public void setResult(Object result) {
+    public RpcResponse setResult(Object result) {
         this.result = result;
+        return this;
     }
 
     public String getMsg() {
         return msg;
     }
 
-    public void setMsg(String msg) {
+    public RpcResponse setMsg(String msg) {
         this.msg = msg;
+        return this;
     }
 }

@@ -30,6 +30,7 @@ public class CglibProxy implements MethodInterceptor, IProxy {
     }
 
 
+    @Override
     public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
         Class<?> declaringClass = method.getDeclaringClass();
         if (!declaringClass.isAssignableFrom(Object.class)) {
@@ -54,7 +55,7 @@ public class CglibProxy implements MethodInterceptor, IProxy {
      */
     private RpcRequest buildRequest(Method method, Class<?> declaringClass, Object[] objects) {
         return new RpcRequest()
-                .setMethodName(method.getName())
+                .setMethod(method)
                 .setDeclaringClass(declaringClass)
                 .setObjects(objects)
                 .setParameterTypes(method.getParameterTypes());

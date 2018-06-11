@@ -1,6 +1,7 @@
 package protocal;
 
 import java.io.Serializable;
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.UUID;
 
@@ -22,9 +23,9 @@ public class RpcRequest<T> implements Serializable {
     private Class<T> declaringClass;
 
     /**
-     * 方法名称
+     * 方法
      */
-    private String methodName;
+    private Method method;
 
     /**
      * 参数
@@ -50,12 +51,12 @@ public class RpcRequest<T> implements Serializable {
         return this;
     }
 
-    public String getMethodName() {
-        return methodName;
+    public Method getMethod() {
+        return method;
     }
 
-    public RpcRequest<T> setMethodName(String methodName) {
-        this.methodName = methodName;
+    public RpcRequest<T> setMethod(Method method) {
+        this.method = method;
         return this;
     }
 
@@ -86,8 +87,8 @@ public class RpcRequest<T> implements Serializable {
     public String toString() {
         return "RpcRequest{" +
                 "requestId='" + requestId + '\'' +
-                ", invokeClass=" + declaringClass.getName() +
-                ", methodName='" + methodName + '\'' +
+                ", declaringClass=" + declaringClass +
+                ", method=" + method +
                 ", objects=" + Arrays.toString(objects) +
                 ", parameterTypes=" + Arrays.toString(parameterTypes) +
                 '}';

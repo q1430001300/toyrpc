@@ -2,9 +2,10 @@ package server.init;
 
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
-import protocal.RessultCode;
+import protocal.ResultCode;
 import protocal.RpcRequest;
 import protocal.RpcResponse;
+import server.resolver.ResponseResolver;
 
 public class ServerHandler extends ChannelHandlerAdapter {
 
@@ -13,12 +14,10 @@ public class ServerHandler extends ChannelHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         if (msg instanceof RpcRequest) {
             RpcRequest rpcRequest = (RpcRequest) msg;
-            RpcResponse response = new RpcResponse();
-            response.setRequestId(rpcRequest.getRequestId());
-            response.setRessultCode(RessultCode.SUCCESS);
-            response.setResult(rpcRequest.getObjects().toString());
-            ctx.writeAndFlush(response);
+            RpcResponse rpcResponse = new ResponseResolver(rpcRequest).resloveResponse();
+            ctx.writeAndFlush(rpcResponse);
         }
+        ctx.fireChannelRead(msg);
 
     }
 
