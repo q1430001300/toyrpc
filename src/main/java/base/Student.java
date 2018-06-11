@@ -16,31 +16,35 @@ public class Student {
         return id;
     }
 
-    public void setId(Long id) {
+    public Student setId(Long id) {
         this.id = id;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public Student setName(String name) {
         this.name = name;
+        return this;
     }
 
     public Boolean getSex() {
         return sex;
     }
 
-    public void setSex(Boolean sex) {
+    public Student setSex(Boolean sex) {
         this.sex = sex;
+        return this;
     }
 
     public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public Student setBirthday(Date birthday) {
         this.birthday = birthday;
+        return this;
     }
 }

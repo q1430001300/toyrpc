@@ -9,7 +9,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 public class RpcServer {
 
-    public void connect(int port) throws InterruptedException {
+    public static void connect(int port) throws InterruptedException {
         ServerBootstrap b = new ServerBootstrap();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         EventLoopGroup bossGroup = new NioEventLoopGroup();
@@ -25,9 +25,5 @@ public class RpcServer {
             workerGroup.shutdownGracefully();
         }
 
-    }
-
-    public static void main(String[] args) throws InterruptedException {
-        new RpcServer().connect(8086);
     }
 }

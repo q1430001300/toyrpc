@@ -14,7 +14,8 @@ public class RandomBalanceStragy implements IBalanceStragy {
     @Override
     public Channel balanceStragy(Map<String, Channel> map) {
         int size = map.size();
-        int index = new Random(size - 1).nextInt();
-        return map.get(index);
+        int index = new Random().nextInt(size);
+        return map.get("127.0.0.1:8080");
     }
+
 }

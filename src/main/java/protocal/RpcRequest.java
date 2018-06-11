@@ -25,7 +25,7 @@ public class RpcRequest<T> implements Serializable {
     /**
      * 方法
      */
-    private Method method;
+    private String method;
 
     /**
      * 参数
@@ -51,11 +51,11 @@ public class RpcRequest<T> implements Serializable {
         return this;
     }
 
-    public Method getMethod() {
+    public String getMethod() {
         return method;
     }
 
-    public RpcRequest<T> setMethod(Method method) {
+    public RpcRequest<T> setMethod(String method) {
         this.method = method;
         return this;
     }

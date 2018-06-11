@@ -5,6 +5,7 @@ import client.balance.RandomBalanceStragy;
 import io.netty.channel.Channel;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 
@@ -38,12 +39,23 @@ public class ChannelManager {
         channels.remove(address);
     }
 
+    public static void removeChannel(Set<String> address) {
+        assert address != null;
+        for (String s : address) {
+            removeChannel(s);
+        }
+    }
+
     public static void removeAll() {
         channels.clear();
     }
 
     public static int getChannelSize() {
         return channels.size();
+    }
+
+    public static Set<String> getAddress() {
+        return channels.keySet();
     }
 
 }

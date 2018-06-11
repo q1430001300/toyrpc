@@ -28,8 +28,15 @@ public class ResponseResolver {
         Class declaringClass = rpcRequest.getDeclaringClass();
         Object invoker = ServiceContext.getInvoker(declaringClass);
         Object[] objects = rpcRequest.getObjects();
-        Method method = rpcRequest.getMethod();
+        String name = rpcRequest.getMethod();
         try {
+            Method[] declaredMethods = invoker.getClass().getDeclaredMethods();
+            Method method = null;
+            for (Method declaredMethod : declaredMethods) {
+                if (name.equals(declaredMethod.getName())) {
+                    method = declaredMethod;
+                }
+            }
             Object invoke = method.invoke(invoker, objects);
             rpcResponse = RpcResponseUtil.generateSuccessResopnse(rpcRequest.getRequestId(), invoke);
         } catch (InvocationTargetException e) {

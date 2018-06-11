@@ -55,7 +55,7 @@ public class CglibProxy implements MethodInterceptor, IProxy {
      */
     private RpcRequest buildRequest(Method method, Class<?> declaringClass, Object[] objects) {
         return new RpcRequest()
-                .setMethod(method)
+                .setMethod(method.getName())
                 .setDeclaringClass(declaringClass)
                 .setObjects(objects)
                 .setParameterTypes(method.getParameterTypes());

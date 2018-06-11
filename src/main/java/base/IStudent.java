@@ -2,7 +2,9 @@ package base;
 
 public interface IStudent {
 
-    String findById(Long student);
+    Student findById(Long student);
 
     void save(Student student);
+
+    String findName(Long id);
 }
