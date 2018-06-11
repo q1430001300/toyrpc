@@ -1,6 +1,5 @@
-package server;
+package server.init;
 
-import handler.ServerHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.serialization.ClassResolvers;

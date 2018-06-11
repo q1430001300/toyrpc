@@ -1,8 +1,9 @@
-package handler;
+package client.init;
 
-import client.ChannelManager;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import protocal.RpcResponse;
+import client.result.RpcResultContext;
 
 public class ClientHandler extends ChannelHandlerAdapter {
 
@@ -16,12 +17,15 @@ public class ClientHandler extends ChannelHandlerAdapter {
 
     @Override
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
-        ChannelManager.addChannel(ctx.channel());
         ctx.fireChannelRegistered();
     }
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        if (msg instanceof RpcResponse) {
+            RpcResponse response = (RpcResponse) msg;
+            RpcResultContext.addRpcResultHandler(response.getRequestId(), response);
+        }
 
 
     }
