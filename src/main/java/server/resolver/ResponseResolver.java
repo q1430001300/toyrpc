@@ -22,7 +22,7 @@ public class ResponseResolver {
         this.rpcRequest = rpcRequest;
     }
 
-    public RpcResponse resloveResponse() throws IllegalAccessException, InstantiationException {
+    public RpcResponse resloveResponse() {
         assert rpcRequest != null;
         RpcResponse rpcResponse;
         Class declaringClass = rpcRequest.getDeclaringClass();
@@ -33,6 +33,9 @@ public class ResponseResolver {
             Object invoke = method.invoke(invoker, objects);
             rpcResponse = RpcResponseUtil.generateSuccessResopnse(rpcRequest.getRequestId(), invoke);
         } catch (InvocationTargetException e) {
+            e.printStackTrace();
+            rpcResponse = RpcResponseUtil.generateFailResopnse(rpcRequest.getRequestId(), e.getMessage());
+        } catch (IllegalAccessException e) {
             e.printStackTrace();
             rpcResponse = RpcResponseUtil.generateFailResopnse(rpcRequest.getRequestId(), e.getMessage());
         }
