@@ -47,4 +47,14 @@ public class Student {
         this.birthday = birthday;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", sex=" + sex +
+                ", birthday=" + birthday +
+                '}';
+    }
 }

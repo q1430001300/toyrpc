@@ -17,7 +17,7 @@ public class ServerHandler extends ChannelHandlerAdapter {
         if (msg instanceof RpcRequest) {
             RpcRequest rpcRequest = (RpcRequest) msg;
             RpcResponse rpcResponse = new ResponseResolver(rpcRequest).resloveResponse();
-            logger.warn("响应消息:{}", rpcResponse);
+            logger.warn("响应消息:{}", rpcResponse.toString());
             ctx.writeAndFlush(rpcResponse);
         }
 

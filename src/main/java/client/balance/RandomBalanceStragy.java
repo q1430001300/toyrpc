@@ -2,8 +2,7 @@ package client.balance;
 
 import io.netty.channel.Channel;
 
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /**
  * 随机数负载
@@ -15,7 +14,11 @@ public class RandomBalanceStragy implements IBalanceStragy {
     public Channel balanceStragy(Map<String, Channel> map) {
         int size = map.size();
         int index = new Random().nextInt(size);
-        return map.get("127.0.0.1:8080");
+        List<String> keys = new ArrayList();
+        for (String s : map.keySet()) {
+            keys.add(s);
+        }
+        return map.get(keys.get(index));
     }
 
 }

@@ -14,7 +14,7 @@ public class RpcResponse implements Serializable {
 
     private String msg;
 
-    private Object result;
+    private String result;
 
 
     public String getRequestId() {
@@ -35,11 +35,11 @@ public class RpcResponse implements Serializable {
         return this;
     }
 
-    public Object getResult() {
+    public String getResult() {
         return result;
     }
 
-    public RpcResponse setResult(Object result) {
+    public RpcResponse setResult(String result) {
         this.result = result;
         return this;
     }
@@ -51,5 +51,15 @@ public class RpcResponse implements Serializable {
     public RpcResponse setMsg(String msg) {
         this.msg = msg;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "RpcResponse{" +
+                "requestId='" + requestId + '\'' +
+                ", ressultCode=" + ressultCode +
+                ", msg='" + msg + '\'' +
+                ", result=" + result +
+                '}';
     }
 }

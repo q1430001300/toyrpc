@@ -1,5 +1,6 @@
 package server.resolver;
 
+import com.alibaba.fastjson.JSON;
 import protocal.RpcRequest;
 import protocal.RpcResponse;
 import protocal.RpcResponseUtil;
@@ -38,7 +39,7 @@ public class ResponseResolver {
                 }
             }
             Object invoke = method.invoke(invoker, objects);
-            rpcResponse = RpcResponseUtil.generateSuccessResopnse(rpcRequest.getRequestId(), invoke);
+            rpcResponse = RpcResponseUtil.generateSuccessResopnse(rpcRequest.getRequestId(), JSON.toJSON(invoke).toString());
         } catch (InvocationTargetException e) {
             e.printStackTrace();
             rpcResponse = RpcResponseUtil.generateFailResopnse(rpcRequest.getRequestId(), e.getMessage());

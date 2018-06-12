@@ -7,11 +7,11 @@ package protocal;
  */
 public class RpcResponseUtil {
 
-    public static RpcResponse generateSuccessResopnse(String requestId, Object result) {
+    public static RpcResponse generateSuccessResopnse(String requestId, String result) {
         return generateResopnse(requestId, null, ResultCode.SUCCESS, result);
     }
 
-    public static RpcResponse generateFailResopnse(String requestId, String msg, Object result) {
+    public static RpcResponse generateFailResopnse(String requestId, String msg, String result) {
         return generateResopnse(requestId, msg, ResultCode.FAIL, result);
     }
 
@@ -19,7 +19,7 @@ public class RpcResponseUtil {
         return generateResopnse(requestId, msg, ResultCode.FAIL, null);
     }
 
-    public static RpcResponse generateResopnse(String requestId, String msg, ResultCode resultCode, Object result) {
+    public static RpcResponse generateResopnse(String requestId, String msg, ResultCode resultCode, String result) {
         return new RpcResponse().
                 setRequestId(requestId).
                 setRessultCode(resultCode).

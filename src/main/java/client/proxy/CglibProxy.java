@@ -1,15 +1,18 @@
 package client.proxy;
 
 import client.channel.ChannelManager;
+import com.alibaba.fastjson.JSONObject;
 import io.netty.channel.Channel;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import protocal.ResultCode;
 import protocal.RpcRequest;
 import client.result.RpcResultContext;
 import client.result.RpcResultHandler;
+import protocal.RpcResponse;
 
 import java.lang.reflect.Method;
 
@@ -34,12 +37,18 @@ public class CglibProxy implements MethodInterceptor, IProxy {
     public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {
         Class<?> declaringClass = method.getDeclaringClass();
         if (!declaringClass.isAssignableFrom(Object.class)) {
+            Class<?> returnType = method.getReturnType();
             RpcRequest request = buildRequest(method, declaringClass, objects);
             logger.warn("request msg:{}", request);
             Channel channel = ChannelManager.getChannel();
             channel.writeAndFlush(request);
             //getResult
-            return RpcResultContext.getResponse(request.getRequestId(), new RpcResultHandler()).getResult();
+            RpcResponse response = RpcResultContext.getResponse(request.getRequestId(), new RpcResultHandler());
+            if (response.getRessultCode().equals(ResultCode.SUCCESS)) {
+                return JSONObject.parseObject(response.getResult(), returnType);
+            } else {
+                throw new Exception(response.getMsg());
+            }
         }
         return method.invoke(o, objects);
 
