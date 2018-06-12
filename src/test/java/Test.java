@@ -63,11 +63,31 @@ public class Test {
     public void test3() throws InterruptedException {
 
         ClientStrap.beginClient();
+        ThreadPoolExecutor threadPoolExecutor =
+                new ThreadPoolExecutor(10, 10, 50, TimeUnit.SECONDS, new LinkedBlockingDeque<Runnable>());
         IStudent aClass = ClientStrap.getClass(IStudent.class);
-        Student student = aClass.findById(1L);
-        System.out.println(student);
-
+        for (long i = 0; i < 10; i++) {
+            threadPoolExecutor.execute(new MyThread(aClass, i));
+        }
+        Thread.sleep(10000);
     }
 
+
+    public class MyThread implements Runnable {
+
+        IStudent aclass;
+        Long i;
+
+        public MyThread(IStudent aclass, long i) {
+            this.aclass = aclass;
+            this.i = i;
+        }
+
+        @Override
+        public void run() {
+            Student byId = aclass.findById(i);
+            System.err.println(i + "  " + byId.getId());
+        }
+    }
 
 }

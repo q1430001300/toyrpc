@@ -1,7 +1,6 @@
 package client.proxy;
 
 import client.channel.ChannelManager;
-import com.alibaba.fastjson.JSONObject;
 import io.netty.channel.Channel;
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
@@ -45,7 +44,7 @@ public class CglibProxy implements MethodInterceptor, IProxy {
             //getResult
             RpcResponse response = RpcResultContext.getResponse(request.getRequestId(), new RpcResultHandler());
             if (response.getRessultCode().equals(ResultCode.SUCCESS)) {
-                return JSONObject.parseObject(response.getResult(), returnType);
+                return response.getResult();
             } else {
                 throw new Exception(response.getMsg());
             }

@@ -15,6 +15,6 @@ public class StudentImpl implements IStudent {
 
     @Override
     public String findName(Long id) {
-        return "pmj";
+        return id + "pmj";
     }
 }

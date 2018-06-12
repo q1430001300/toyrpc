@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * 响应
  */
-public class RpcResponse implements Serializable {
+public class RpcResponse<T> implements Serializable {
 
 
     private String requestId;
@@ -14,7 +14,7 @@ public class RpcResponse implements Serializable {
 
     private String msg;
 
-    private String result;
+    private T result;
 
 
     public String getRequestId() {
@@ -35,11 +35,11 @@ public class RpcResponse implements Serializable {
         return this;
     }
 
-    public String getResult() {
+    public T getResult() {
         return result;
     }
 
-    public RpcResponse setResult(String result) {
+    public RpcResponse setResult(T result) {
         this.result = result;
         return this;
     }
