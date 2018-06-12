@@ -11,13 +11,14 @@ import server.resolver.ResponseResolver;
 public class ServerHandler extends ChannelHandlerAdapter {
 
     private static final Logger logger = LoggerFactory.getLogger(ServerHandler.class);
+
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         if (msg instanceof RpcRequest) {
             RpcRequest rpcRequest = (RpcRequest) msg;
             RpcResponse rpcResponse = new ResponseResolver(rpcRequest).resloveResponse();
-            logger.warn("响应消息:{}",rpcResponse);
-            ctx.channel().writeAndFlush(rpcResponse);
+            logger.warn("响应消息:{}", rpcResponse);
+            ctx.writeAndFlush(rpcResponse);
         }
 
     }

@@ -44,10 +44,10 @@ public class ServerRegistry {
         int port = Integer.parseInt(server.getString("server.port"));
         try {
 
-            zooKeeper.create(ZookeeperConstant.SLASH_SEPARATOR + ip + ZookeeperConstant.SEPARATOR + port, null, ZooDefs.Ids.OPEN_ACL_UNSAFE,
+            zooKeeper.create(ZookeeperConstant.BASE_PATH + ZookeeperConstant.SLASH_SEPARATOR + ip + ZookeeperConstant.SEPARATOR + port, null, ZooDefs.Ids.OPEN_ACL_UNSAFE,
                     CreateMode.EPHEMERAL, (int rc, String path, Object ctx,
                                            String name) -> {
-                        logger.warn("path is :{},name is :{}");
+                        logger.warn("path is :{},name is :{}", path, name);
                     }, null);
             RpcServer.connect(port);
         } catch (InterruptedException e) {

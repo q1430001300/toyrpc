@@ -33,7 +33,7 @@ public class ChannelProvider {
 
     public void consume() {
         try {
-            List<String> addresses = zooKeeper.getChildren(ZookeeperConstant.SLASH_SEPARATOR, this::process);
+            List<String> addresses = zooKeeper.getChildren(ZookeeperConstant.BASE_PATH, this::process);
             connectToServer(addresses);
         } catch (KeeperException e) {
             e.printStackTrace();
@@ -45,14 +45,12 @@ public class ChannelProvider {
     private void connectToServer(List<String> addresses) {
         if (Objects.equals(ChannelManager.getChannelSize(), 0)) {
             for (String address : addresses) {
-                if (!address.startsWith("zoo")) {
-                    String host = address.split(":")[0];
-                    String port = address.split(":")[1];
-                    try {
-                        RpcClient.connect(Integer.parseInt(port), host);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                String host = address.split(":")[0];
+                String port = address.split(":")[1];
+                try {
+                    RpcClient.connect(Integer.parseInt(port), host);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
 
             }

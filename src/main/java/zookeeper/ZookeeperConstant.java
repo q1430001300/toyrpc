@@ -12,6 +12,8 @@ public class ZookeeperConstant {
 
     public static final String SEPARATOR = ":";
 
+    public static final String BASE_PATH = "/pmj";
+
     static {
         ResourceBundle zk = ResourceBundle.getBundle("zk");
         IP = zk.getString("zk.ip");
